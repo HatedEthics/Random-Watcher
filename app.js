@@ -1,10 +1,12 @@
 // TMDB API Key
-const apiKey = '250b2d49c1793e45001a495b1e79d308';
+const apiKey = '250b2d49c1793e45001a495b1e79d308'; // Replace with your TMDB API key
 
 document.getElementById("getRandom").addEventListener("click", function () {
     // Show loading spinner
     document.getElementById("loading").style.display = "block";
-    document.getElementById("result").classList.remove("show-result");
+    // Hide the result and description boxes initially
+    document.getElementById("result").style.display = "none";
+    document.getElementById("description").style.display = "none";
     document.getElementById("description").classList.remove("show-description");
 
     // Get the selected category
@@ -126,7 +128,6 @@ function fetchRandomAnime() {
     });
 }
 
-
 function displayResult(result, isError = false) {
     // Hide loading spinner
     document.getElementById("loading").style.display = "none";
@@ -134,12 +135,15 @@ function displayResult(result, isError = false) {
     const resultDiv = document.getElementById("result");
     if (result) {
         resultDiv.innerHTML = `You should watch: ${result}`;
-        resultDiv.classList.add("show-result");
+        resultDiv.classList.add("show-results");
+        resultDiv.style.display = "block"; // Show result box
         if (isError) {
             resultDiv.classList.add("error");
         }
     } else {
         resultDiv.innerHTML = "Sorry, something went wrong!";
+        resultDiv.classList.add("show-results");
+        resultDiv.style.display = "block"; // Show result box
     }
 }
 
@@ -151,4 +155,5 @@ function displayDescription(title, year, description) {
         ${description}
     `;
     descriptionDiv.classList.add("show-description");
+    descriptionDiv.style.display = "block"; // Show description box
 }
