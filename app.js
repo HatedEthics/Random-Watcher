@@ -36,6 +36,7 @@ function fetchRandomMovie() {
             if (data.results && data.results.length > 0) {
                 const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
                 const imageUrl = randomMovie.poster_path ? `https://image.tmdb.org/t/p/w500${randomMovie.poster_path}` : '';
+                console.log('Movie image URL:', imageUrl); // Debugging output
                 displayResult(`Movie: <a href="https://www.themoviedb.org/movie/${randomMovie.id}" target="_blank">${randomMovie.title}</a>`, imageUrl);
                 displayDescription(randomMovie.title, randomMovie.release_date ? randomMovie.release_date.split('-')[0] : 'Unknown', randomMovie.overview);
             } else {
@@ -63,6 +64,7 @@ function fetchRandomTVShow() {
             if (data.results && data.results.length > 0) {
                 const randomShow = data.results[Math.floor(Math.random() * data.results.length)];
                 const imageUrl = randomShow.poster_path ? `https://image.tmdb.org/t/p/w500${randomShow.poster_path}` : '';
+                console.log('TV Show image URL:', imageUrl); // Debugging output
                 displayResult(`TV Show: <a href="https://www.themoviedb.org/tv/${randomShow.id}" target="_blank">${randomShow.name}</a>`, imageUrl);
                 displayDescription(randomShow.name, randomShow.first_air_date ? randomShow.first_air_date.split('-')[0] : 'Unknown', randomShow.overview);
             } else {
@@ -118,6 +120,7 @@ function fetchRandomAnime() {
                 // Randomly select an anime from the list
                 const randomAnime = animeList[Math.floor(Math.random() * animeList.length)];
                 const imageUrl = randomAnime.coverImage.large || '';
+                console.log('Anime image URL:', imageUrl); // Debugging output
                 displayResult(`Anime: <a href="https://anilist.co/anime/${randomAnime.id}" target="_blank">${randomAnime.title.english || 'Title not available in English'}</a>`, imageUrl);
                 displayDescription(randomAnime.title.english || 'Title not available in English', randomAnime.startDate.year || 'Unknown', randomAnime.description || 'No description available');
             } else {
