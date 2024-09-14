@@ -4,10 +4,9 @@ const apiKey = '250b2d49c1793e45001a495b1e79d308'; // Replace with your TMDB API
 document.getElementById("getRandom").addEventListener("click", function () {
     // Show loading spinner
     document.getElementById("loading").style.display = "block";
-    // Hide the result and description boxes initially
-    document.getElementById("result").style.display = "none";
-    document.getElementById("description").style.display = "none";
+    document.getElementById("result").classList.remove("show-result");
     document.getElementById("description").classList.remove("show-description");
+    document.getElementById("description").style.display = "none"; // Hide description box initially
 
     // Get the selected category
     const selectedCategory = document.querySelector('input[name="category"]:checked').value;
@@ -36,7 +35,8 @@ function fetchRandomMovie() {
         .then(data => {
             if (data.results && data.results.length > 0) {
                 const randomMovie = data.results[Math.floor(Math.random() * data.results.length)];
-                displayResult(`Movie: <a href="https://www.themoviedb.org/movie/${randomMovie.id}" target="_blank">${randomMovie.title}</a>`);
+                const imageUrl = `https://image.tmdb.org/t/p/w500${randomMovie.poster_path}`;
+                displayResult(`Movie: <a href="https://www.themoviedb.org/movie/${randomMovie.id}" target="_blank">${randomMovie.title}</a>`, imageUrl);
                 displayDescription(randomMovie.title, randomMovie.release_date ? randomMovie.release_date.split('-')[0] : 'Unknown', randomMovie.overview);
             } else {
                 throw new Error("No movies found.");
@@ -44,7 +44,7 @@ function fetchRandomMovie() {
         })
         .catch(error => {
             console.error('Error fetching movie:', error);
-            displayResult('Failed to load movie. Please try again.', true);
+            displayResult('Failed to load movie. Please try again.', '', true);
         });
 }
 
@@ -62,7 +62,8 @@ function fetchRandomTVShow() {
         .then(data => {
             if (data.results && data.results.length > 0) {
                 const randomShow = data.results[Math.floor(Math.random() * data.results.length)];
-                displayResult(`TV Show: <a href="https://www.themoviedb.org/tv/${randomShow.id}" target="_blank">${randomShow.name}</a>`);
+                const imageUrl = `https://image.tmdb.org/t/p/w500${randomShow.poster_path}`;
+                displayResult(`TV Show: <a href="https://www.themoviedb.org/tv/${randomShow.id}" target="_blank">${randomShow.name}</a>`, imageUrl);
                 displayDescription(randomShow.name, randomShow.first_air_date ? randomShow.first_air_date.split('-')[0] : 'Unknown', randomShow.overview);
             } else {
                 throw new Error("No TV shows found.");
@@ -70,7 +71,7 @@ function fetchRandomTVShow() {
         })
         .catch(error => {
             console.error('Error fetching TV show:', error);
-            displayResult('Failed to load TV show. Please try again.', true);
+            displayResult('Failed to load TV show. Please try again.', '', true);
         });
 }
 
@@ -87,6 +88,9 @@ function fetchRandomAnime() {
                     description
                     startDate {
                         year
+                    }
+                    coverImage {
+                        large
                     }
                 }
             }
@@ -113,7 +117,8 @@ function fetchRandomAnime() {
             if (animeList.length > 0) {
                 // Randomly select an anime from the list
                 const randomAnime = animeList[Math.floor(Math.random() * animeList.length)];
-                displayResult(`Anime: <a href="https://anilist.co/anime/${randomAnime.id}" target="_blank">${randomAnime.title.english || 'Title not available in English'}</a>`);
+                const imageUrl = randomAnime.coverImage.large;
+                displayResult(`Anime: <a href="https://anilist.co/anime/${randomAnime.id}" target="_blank">${randomAnime.title.english || 'Title not available in English'}</a>`, imageUrl);
                 displayDescription(randomAnime.title.english || 'Title not available in English', randomAnime.startDate.year || 'Unknown', randomAnime.description || 'No description available');
             } else {
                 throw new Error("No anime found.");
@@ -124,26 +129,37 @@ function fetchRandomAnime() {
     })
     .catch(error => {
         console.error('Error fetching anime:', error);
-        displayResult('Failed to load anime. Please try again.', true);
+        displayResult('Failed to load anime. Please try again.', '', true);
     });
 }
 
-function displayResult(result, isError = false) {
+function displayResult(result, imageUrl = '', isError = false) {
     // Hide loading spinner
     document.getElementById("loading").style.display = "none";
 
     const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = '';
+
+    if (imageUrl) {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = 'Image';
+        img.style.width = '50%'; // Adjust width to 50% of the container
+        img.style.maxWidth = '150px'; // Set a smaller maximum width
+        img.style.borderRadius = '8px'; // Optional: add rounded corners
+        img.style.marginBottom = '10px'; // Space between image and text
+        resultDiv.appendChild(img);
+    }
+
     if (result) {
-        resultDiv.innerHTML = `You should watch: ${result}`;
-        resultDiv.classList.add("show-results");
-        resultDiv.style.display = "block"; // Show result box
+        resultDiv.innerHTML += `<p>You should watch: ${result}</p>`;
+        resultDiv.classList.add("show-result");
         if (isError) {
             resultDiv.classList.add("error");
+            resultDiv.innerHTML += "<p>Failed to fetch data. Please try again later.</p>";
         }
     } else {
         resultDiv.innerHTML = "Sorry, something went wrong!";
-        resultDiv.classList.add("show-results");
-        resultDiv.style.display = "block"; // Show result box
     }
 }
 
