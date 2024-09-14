@@ -1,5 +1,5 @@
 // TMDB API Key
-const apiKey = '250b2d49c1793e45001a495b1e79d308'; // Replace with your TMDB API key
+const apiKey = ${{secrets.YOUR_TMDB_API_KEY}}; // Replace with your TMDB API key
 
 document.getElementById("getRandom").addEventListener("click", function () {
     // Show loading spinner
