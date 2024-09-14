@@ -12,34 +12,38 @@
 </head>
 <body>
     <div class="container">
-        <div>
-            <h1>What Should You Watch?</h1>
+        <div class="content-wrapper">
+            <div class="main-content">
+                <h1>What Should You Watch?</h1>
 
-            <!-- Category Options -->
-            <div class="options">
-                <label>
-                    <input type="radio" name="category" value="movie" checked> Movie
-                </label>
-                <label>
-                    <input type="radio" name="category" value="tv"> TV Show
-                </label>
-                <label>
-                    <input type="radio" name="category" value="anime"> Anime
-                </label>
+                <!-- Category Options -->
+                <div class="options">
+                    <label>
+                        <input type="radio" name="category" value="movie" checked> Movie
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="tv"> TV Show
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="anime"> Anime
+                    </label>
+                </div>
+
+                <!-- Loading Spinner (hidden by default) -->
+                <div id="loading" style="display: none;">
+                    <img src="loading-buffering.gif" alt="Loading...">
+                </div>
+
+                <!-- Get Recommendation Button -->
+                <button id="getRandom">Get a Recommendation</button>
+
+                <!-- Result Box -->
+                <div id="result"></div>
             </div>
 
-            <!-- Loading Spinner (hidden by default) -->
-            <div id="loading" style="display: none;">
-                <img src="loading-buffering.gif" alt="Loading...">
-            </div>
-
-            <!-- Get Recommendation Button -->
-            <button id="getRandom">Get a Recommendation</button>
+            <!-- Description Box -->
+            <div id="description" class="description-box"></div>
         </div>
-
-        <!-- Result and Description Boxes -->
-        <div id="result"></div>
-        <div id="description" class="description-box"></div>
     </div>
 
     <!-- Link to app.js -->
