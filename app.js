@@ -1,5 +1,4 @@
-// app.js (Server-Side)
-const apiKey = process.env.TMDB_API_KEY; // Use GitHub secret here
+const apiKey = ${{ secrets.TMDB_API_KEY }};
 
 document.getElementById("getRandom").addEventListener("click", function () {
     // Show loading spinner
