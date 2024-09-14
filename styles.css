@@ -139,22 +139,23 @@ button:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Styling for the result div */
+/* Result Box Styling */
 #result {
     font-size: 22px;
-    color: #333; /* Darker text for result */
-    background: var(--result-bg-color); /* Transparent red */
+    color: #333;
+    background: var(--result-bg-color);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     margin-top: 25px;
     flex: 1;
-    display: none; /* Hide by default */
+    text-align: center;
 }
 
-/* Show the result box when the show-results class is added */
-.show-results {
-    display: block; /* Show the result box */
+/* Image in Result Box */
+#result img {
+    border-radius: 8px; /* Rounded corners for the image */
+    margin-bottom: 15px; /* Space between the image and text */
 }
 
 /* Styling for the description box */
@@ -217,5 +218,3 @@ button:hover {
 button:hover {
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); /* Subtle gold glow effect */
 }
-/* Remove tap highlight color for mobile */
--webkit-tap-highlight-color: transparent;
