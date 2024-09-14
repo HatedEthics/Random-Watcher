@@ -1,52 +1,112 @@
 /* General styling for the body */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #e0f7fa, #b3e5fc); /* Light blue gradient background */
+    background: url('theater.jpg') no-repeat center center fixed; /* Set background image */
+    background-size: cover; /* Ensure the image covers the entire background */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Full viewport height */
-    color: #333; /* Dark text for readability */
+    color: #f5f5f5; /* Light text for contrast */
+}
+
+/* Define CSS Variables for colors */
+:root {
+    --primary-bg-color: #f9f9f9; /* Very light grey for the main container */
+    --border-color: #bfa36a; /* Gold border for a theater touch */
+    --button-bg-start: #b71c1c; /* Gold for button start */
+    --button-bg-end: #e2a700; /* Darker gold for button end */
+    --button-hover-bg-start: #e2a700; /* Darker gold for hover */
+    --button-hover-bg-end: #f5c300; /* Gold for hover */
+    --result-bg-color: rgba(145, 0, 0, 0.2); /* Red with 70% opacity for result box */
+    --description-bg-color: #f9f9f9; /* Very light grey for description box */
+    --shadow-color: rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
 }
 
 /* Center the container */
 .container {
-    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Flexbox container for content and description */
+.content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+    max-width: 1200px; /* Adjust based on preference */
+}
+
+/* Main content styling */
+.main-content {
+    background-color: var(--primary-bg-color); /* Very light grey background */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    box-shadow: 0 8px 16px var(--shadow-color); /* Darker shadow for depth */
     text-align: center;
-    max-width: 500px; /* Adjusted width for better readability */
-    width: 90%;
-    border: 2px solid #00bcd4; /* Light blue border */
+    max-width: 600px; /* Adjusted width for better readability */
+    width: 100%;
+    border: 2px solid var(--border-color); /* Gold border */
     animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+    margin-right: 20px; /* Space between main content and description box */
 }
 
 /* Heading style */
 h1 {
     font-size: 32px;
     margin-bottom: 20px;
-    color: #00000; /* Light blue color for heading */
+    color: #333; /* Dark text for heading */
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 /* Category Options */
 .options {
+    display: flex;
+    justify-content: center; /* Center the labels horizontally */
+    align-items: center; /* Align items vertically */
+    flex-wrap: wrap; /* Wrap items if necessary */
     margin-bottom: 20px;
 }
 
 label {
     font-size: 18px;
-    margin-right: 15px;
+    margin: 10px 20px; /* Adjust margin for spacing */
     cursor: pointer;
-    color: #333; /* Dark text for labels */
+    color: #000; /* Dark text for labels */
+    display: flex; /* Ensure labels use flexbox */
+    align-items: center; /* Center items vertically */
 }
 
+/* Custom Radio Button */
 input[type="radio"] {
-    margin-right: 8px;
+    appearance: none; /* Remove default radio button styles */
+    width: 20px; /* Set size of the custom radio button */
+    height: 20px; /* Set size of the custom radio button */
+    border-radius: 50%; /* Make it circular */
+    border: 2px solid #bfa36a; /* Gold border */
+    background: #f9f9f9; /* Light grey background */
+    margin-right: 10px; /* Space between button and label text */
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px; /* Size of the inner dot */
+    height: 10px; /* Size of the inner dot */
+    border-radius: 50%;
+    background: #f5c300; /* Gold color for checked state */
+    transform: translate(-50%, -50%); /* Center the inner dot */
 }
 
 /* Loading Spinner */
@@ -64,52 +124,57 @@ button {
     padding: 15px 30px;
     font-size: 20px;
     cursor: pointer;
-    background: linear-gradient(45deg, #000000, #555555); /* Black to gray gradient for button */
+    background: linear-gradient(45deg, var(--button-bg-start), var(--button-bg-end)); /* Gold gradient for button */
     color: #ffffff;
     border: none;
     border-radius: 12px;
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px var(--shadow-color);
 }
 
 /* Button hover effect */
 button:hover {
-    background: linear-gradient(45deg, #555555, #000000); /* Reversed gradient on hover */
+    background: linear-gradient(45deg, var(--button-hover-bg-start), var(--button-hover-bg-end)); /* Darker gold gradient on hover */
     transform: scale(1.05); /* Slightly larger hover effect */
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* Styling for the result div */
 #result {
-    margin-top: 25px;
     font-size: 22px;
     color: #333; /* Darker text for result */
-    background: #e0f7fa; /* Light blue background for result box */
+    background: var(--result-bg-color); /* Transparent red */
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    visibility: visible;
-    font-weight: bold;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 25px;
+    flex: 1;
+    display: none; /* Hide by default */
+}
+
+/* Show the result box when the show-results class is added */
+.show-results {
+    display: block; /* Show the result box */
 }
 
 /* Styling for the description box */
 #description {
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    background: #ffffff; /* White background for the description box */
-    border: 2px solid #00bcd4; /* Light blue border */
+    display: none; /* Hide by default */
+    background: var(--description-bg-color); /* Very light grey background */
+    border: 2px solid var(--border-color); /* Gold border */
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--shadow-color);
     width: 300px;
     max-height: 200px; /* Max height to prevent overflow */
     overflow-y: auto; /* Scroll if content exceeds max height */
+    flex-shrink: 0; /* Prevent shrinking */
+    color: #333; /* Dark text color for readability */
 }
 
-/* Show the description box when results are present */
+/* Show the description box when the show-description class is added */
 .show-description {
-    visibility: visible;
+    display: block; /* Show the description box */
 }
 
 /* Error messages (if any) */
@@ -129,7 +194,7 @@ button:hover {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
+    .main-content {
         padding: 20px;
         max-width: 90%;
     }
@@ -148,3 +213,9 @@ button:hover {
         max-height: 150px;
     }
 }
+
+button:hover {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); /* Subtle gold glow effect */
+}
+/* Remove tap highlight color for mobile */
+-webkit-tap-highlight-color: transparent;
