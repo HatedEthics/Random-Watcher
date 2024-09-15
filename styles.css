@@ -41,6 +41,7 @@ body {
     justify-content: center;
     flex: 1;
     max-width: 1200px; /* Adjust based on preference */
+    flex-wrap: wrap; /* For better mobile responsiveness */
 }
 
 /* Main content styling */
@@ -55,6 +56,7 @@ body {
     border: 2px solid var(--border-color); /* Gold border */
     animation: fadeIn 1s ease-in-out; /* Fade-in animation */
     margin-right: 20px; /* Space between main content and description box */
+    flex-grow: 1; /* Grow to fill available space */
 }
 
 /* Heading style */
@@ -156,6 +158,8 @@ button:hover {
 #result img {
     border-radius: 8px; /* Rounded corners for the image */
     margin-bottom: 15px; /* Space between the image and text */
+    max-width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
 }
 
 /* Styling for the description box */
@@ -198,10 +202,12 @@ button:hover {
     .main-content {
         padding: 20px;
         max-width: 90%;
+        margin-right: 0; /* Remove margin on mobile */
+        margin-bottom: 20px; /* Add space between content and description */
     }
 
     button {
-        width: 100%;
+        width: 100%; /* Full width button on mobile */
         font-size: 18px;
     }
 
@@ -210,8 +216,8 @@ button:hover {
     }
 
     #description {
-        width: 90%;
-        max-height: 150px;
+        width: 90%; /* Wider description box on mobile */
+        max-height: 150px; /* Adjust height for mobile */
     }
 }
 
